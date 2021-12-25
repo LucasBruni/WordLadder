@@ -69,23 +69,6 @@ namespace Services.Tests
         }
 
         /// <summary>
-        /// Test the IsInList when there is the word.
-        /// </summary>
-        [Fact]
-        public void GetWordList_WordIsInList()
-        {
-            // Arrange
-            IWordService wordService = this.GetWordService();
-            WordModel word = new WordModel("Test");
-
-            // Act
-            var result = wordService.IsInList(word);
-
-            // Assert
-            Assert.True(result);
-        }
-
-        /// <summary>
         /// Test the IsInList when there is not the word.
         /// </summary>
         [Fact]

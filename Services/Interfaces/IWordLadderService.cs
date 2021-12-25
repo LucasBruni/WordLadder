@@ -16,5 +16,14 @@ namespace Services.Interfaces
         /// <param name="availableWords">Available Words.</param>
         /// <returns>Word Ladder Result.</returns>
         public IEnumerable<WordModel> FindWordLadder(WordModel firstWord, WordModel targetWord, IEnumerable<WordModel> availableWords);
+
+        /// <summary>
+        /// Validate Word Ladder rules.
+        /// </summary>
+        /// <param name="firstWord">The First Word.</param>
+        /// <param name="targetWord">The Target Word.</param>
+        /// <param name="availableWords">Available Words.</param>
+        /// <returns>If is Valid.</returns>
+        public bool Validate(WordModel firstWord, WordModel targetWord, IEnumerable<WordModel> availableWords);
     }
 }

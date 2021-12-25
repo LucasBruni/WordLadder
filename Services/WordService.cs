@@ -36,15 +36,9 @@ namespace Services
         }
 
         /// <summary>
-        /// Gets or sets Word List.
+        /// Gets Word List.
         /// </summary>
-        private IEnumerable<WordModel> Words { get; set; }
-
-        /// <inheritdoc/>
-        public bool IsInList(WordModel word)
-        {
-            return this.Words.Any(w => w.Value.Equals(word.Value));
-        }
+        public IEnumerable<WordModel> Words { get; private set; }
 
         /// <inheritdoc/>
         public IEnumerable<WordModel> GetWordListByLength(int length)

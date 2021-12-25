@@ -1,8 +1,10 @@
-﻿using Services.Interfaces;
+﻿using Core;
+using Services.Interfaces;
 using Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Services
@@ -25,6 +27,55 @@ namespace Services
             while (finalResult.Count() == 0 && allPossibleWordMatches.Count() != 0);
 
             return finalResult;
+        }
+
+        /// <inheritdoc/>
+        public bool Validate(WordModel firstWord, WordModel targetWord, IEnumerable<WordModel> availableWords)
+        {
+            bool isValid = false;
+
+            StringBuilder message = new StringBuilder();
+
+            if (firstWord.IsValid == false || firstWord.Length <= 1)
+            {
+                message.AppendLine("Error: The first word is invalid. Word can only contain letters and need to have at least 2 letters.");
+            }
+
+            if (targetWord.IsValid == false || targetWord.Length <= 1)
+            {
+                message.AppendLine("Error: The target word is invalid.  Word can only contain letters and need to have at least 2 letters.");
+            }
+
+            if (firstWord.Value.Equals(targetWord.Value))
+            {
+                message.AppendLine("Error: The words need to be differents.");
+            }
+
+            if (firstWord.Length != targetWord.Length)
+            {
+                message.AppendLine("Error: The words need to have the same lenght.");
+            }
+
+            if (availableWords.IsInList(firstWord) == false)
+            {
+                message.AppendLine("Error: The first word isn't in the list of available words.");
+            }
+
+            if (availableWords.IsInList(targetWord) == false)
+            {
+                message.AppendLine("Error: The target word isn't in the list of available words.");
+            }
+
+            if (message.Length > 0)
+            {
+                Console.WriteLine(message.ToString());
+            }
+            else
+            {
+                isValid = true;
+            }
+
+            return isValid;
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Domain.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,6 @@ using Persistence.Repositories;
 using Services;
 using Services.Interfaces;
 using Services.Mappings;
-using Services.Models;
 
 namespace Presentation
 {
@@ -44,98 +42,48 @@ namespace Presentation
 
             Program program = service.GetService<Program>();
 
-            program.StartLadder();
+            bool isValid;
+            do
+            {
+                isValid = program.MainMenu();
+            }
+            while (isValid == false);
 
             DisposeServices(service);
             myTimer.Stop();
             Console.WriteLine(myTimer.ElapsedMilliseconds);
         }
 
-        private void StartLadder()
+        /// <summary>
+        /// Main Menu.
+        /// </summary>
+        private bool MainMenu()
         {
-            bool isValid;
-            WordModel firstWord, targetWord;
+            Console.WriteLine("What do you want to start?");
+            Console.WriteLine("1) Word Ladder");
+            Console.WriteLine("2) Exit");
+            Console.WriteLine("Choose an option: ");
 
-            do
-            {
-                this.Menu(out firstWord, out targetWord);
-
-                isValid = this.Validate(firstWord, targetWord);
-            }
-            while (isValid == false);
-
-            var availableWords = this.serviceManager.WordService.GetWordListByLength(firstWord.Length);
-
-            Console.WriteLine($"Available Words Loaded");
-
-            var finalResult = this.serviceManager.WordLadderService.FindWordLadder(firstWord, targetWord, availableWords);
-
-            foreach (var word in finalResult)
-            {
-                Console.WriteLine(word.Value);
-            }
-
-            var outputFilePath = $"{firstWord.Value}_{targetWord.Value}.txt";
-
-            this.serviceManager.WordService.SaveResult(finalResult, outputFilePath);
-        }
-
-        private void Menu(out WordModel firstWord, out WordModel targetWord)
-        {
-            Console.WriteLine(string.Format("Enter the first word: "));
-            firstWord = new WordModel("some");
-            // firstWord = new WordModel(Console.ReadLine().Trim());
-
-            Console.WriteLine(string.Format("Enter the target Word: "));
-            targetWord = new WordModel("cost");
-            //targetWord = new WordModel(Console.ReadLine().Trim());
-
+            // string option = Console.ReadLine();
+            string option = "1";
             Console.WriteLine(Environment.NewLine);
-        }
 
-        private bool Validate(WordModel firstWord, WordModel targetWord)
-        {
-            bool isValid = false;
-
-            StringBuilder message = new StringBuilder();
-
-            if (firstWord.IsValid == false || firstWord.Length <= 1)
+            bool isValid;
+            switch (option)
             {
-                message.AppendLine("Error: The first word is invalid. Word can only contain letters and need to have at least 2 letters.");
-            }
+                case "1":
+                    isValid = true;
 
-            if (targetWord.IsValid == false || targetWord.Length <= 1)
-            {
-                message.AppendLine("Error: The target word is invalid.  Word can only contain letters and need to have at least 2 letters.");
-            }
+                    WordLadder wordLadder = new WordLadder(this.serviceManager);
+                    wordLadder.StartWordLadder();
 
-            if (firstWord.Value.Equals(targetWord.Value))
-            {
-                message.AppendLine("Error: The words need to be differents.");
-            }
-
-            if (firstWord.Length != targetWord.Length)
-            {
-                message.AppendLine("Error: The words need to have the same lenght.");
-            }
-
-            if (this.serviceManager.WordService.IsInList(firstWord) == false)
-            {
-                message.AppendLine("Error: The first word isn't in the list of available words.");
-            }
-
-            if (this.serviceManager.WordService.IsInList(targetWord) == false)
-            {
-                message.AppendLine("Error: The target word isn't in the list of available words.");
-            }
-
-            if (message.Length > 0)
-            {
-                Console.WriteLine(message.ToString());
-            }
-            else
-            {
-                isValid = true;
+                    break;
+                case "2":
+                    isValid = true;
+                    break;
+                default:
+                    isValid = false;
+                    break;
             }
 
             return isValid;

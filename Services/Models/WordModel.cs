@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Services.Models
 {
     /// <summary>
     /// Word Dto Class.
     /// </summary>
-    public class WordModel
+    public class WordModel : IEquatable<WordModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WordModel"/> class.
@@ -30,6 +31,30 @@ namespace Services.Models
         /// Gets a value indicating whether is Valid.
         /// </summary>
         public bool IsValid => this.Value.All(char.IsLetter);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as WordModel);
+        }
+
+        /// <summary>
+        /// Word Model Equals.
+        /// </summary>
+        /// <param name="obj">Word Model.</param>
+        /// <returns>Equals.</returns>
+        public bool Equals(WordModel obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return
+            object.ReferenceEquals(this.Value, obj.Value) ||
+            (this.Value != null &&
+            this.Value.Equals(obj.Value));
+        }
 
         /// <summary>
         /// Gets a value indicating whether the words are alike.

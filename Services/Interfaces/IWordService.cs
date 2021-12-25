@@ -9,11 +9,9 @@ namespace Services.Interfaces
     public interface IWordService
     {
         /// <summary>
-        /// Verify if the word is in the list.
+        /// Gets Word List.
         /// </summary>
-        /// <param name="word">Word.</param>
-        /// <returns>If the word is in the list.</returns>
-        public bool IsInList(WordModel word);
+        public IEnumerable<WordModel> Words { get; }
 
         /// <summary>
         /// Get Word List By Length.
