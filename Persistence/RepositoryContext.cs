@@ -20,7 +20,6 @@ namespace Persistence
         /// <param name="inputFilePath">inputFilePath.</param>
         public RepositoryContext()
         {
-            // this.inputFilePath = ConfigurationManager.AppSettings.Get("InputFilePath");
             this.inputFilePath = $"{Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\"))}Resources\\words-english.txt";
             this.LoadWords();
         }

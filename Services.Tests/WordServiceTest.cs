@@ -5,9 +5,11 @@ using FluentValidation;
 using Moq;
 using Persistence;
 using Persistence.Repositories;
+using Services.Exceptions;
 using Services.Interfaces;
 using Services.Mappings;
 using Services.Models;
+using Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,11 +70,8 @@ namespace Services.Tests
             Assert.NotEmpty(list);
         }
 
-        /// <summary>
-        /// Test the GetWordList with List not Empty.
-        /// </summary>
         [Fact]
-        public void SaveResult()
+        public void SaveResult_WithAnswer_CreateTxtFile()
         {
             // Arrange
             var fakeRepositoryContext = new Mock<RepositoryContext>();
@@ -95,6 +94,52 @@ namespace Services.Tests
             Assert.True(fileSavedSuccessfully);
         }
 
+        [Fact]
+        public void Words_WithData_NotEmpty()
+        {
+            // Arrange
+            IWordService wordService = this.GetWordService();
+
+            // Act
+            var words = wordService.Words;
+
+            // Asset
+            Assert.NotEmpty(words);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("T")]
+        [InlineData("Test.")]
+        public void ValidateWordModel_WithInvalidWordModel_ThrowInvalidWordValueException(string word)
+        {
+            // Arrange
+            IWordService wordService = this.GetWordService();
+            WordModel wordModel = new WordModel(word);
+
+            // Act
+            Action test = () => wordService.ValidateWordModel(wordModel);
+
+            // Asset
+            Assert.ThrowsAny<InvalidWordValueException>(test);
+        }
+
+        [Theory]
+        [InlineData("same")]
+        [InlineData("cost")]
+        public void ValidateWordModel_WithValidWordModel_ThrowInvalidWordValueException(string word)
+        {
+            // Arrange
+            IWordService wordService = this.GetWordService();
+            WordModel wordModel = new WordModel(word);
+
+            // Act
+            wordService.ValidateWordModel(wordModel);
+
+            // Asset
+            Assert.True(true);
+        }
+
         private IWordService GetWordService()
         {
             var fakeWordRepository = new Mock<IWordRepository>();
@@ -103,9 +148,9 @@ namespace Services.Tests
 
             var fakeRepositoryManager = new Mock<RepositoryManager>(fakeWordRepository.Object);
 
-            var fakeValidator = new Mock<IValidator<WordModel>>();
+            var validator = new WordModelValidator();
 
-            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper, fakeValidator.Object);
+            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper, validator);
 
             return wordService;
         }

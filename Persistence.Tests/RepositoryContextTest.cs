@@ -10,7 +10,7 @@ namespace Persistence.Tests
     public class RepositoryContextTest
     {
         [Fact]
-        public void SaveOutputFile()
+        public void SaveOutputFile_WhenHaveAnswer_CreateTxtFileWithAnswer()
         {
             // Arrange
             var repositoryContext = this.GetRepositoryContext();

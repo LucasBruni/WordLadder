@@ -12,7 +12,7 @@ namespace Persistence.Tests
     public class WordRepositoryTest
     {
         [Fact]
-        public void GetWords_NotEmpty()
+        public void GetWords_WhenWordListHaveItems_NotEmpty()
         {
             // Arrange
             var wordRepository = this.GetWordService();
@@ -25,7 +25,24 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void SaveResult_WhenHaveAnswer_SaveTxtFile()
+        public void GetWords_WhenWordListEmpty_Empty()
+        {
+            // Arrange
+            var fakeRepositoryContext = new Mock<IRepositoryContext>();
+            fakeRepositoryContext.SetupGet(w => w.Words)
+                .Returns(new List<Word>() { });
+
+            IWordRepository wordRepository = new WordRepository(fakeRepositoryContext.Object);
+
+            // Act
+            var result = wordRepository.GetWords();
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void SaveResult_WhenHaveAnswer_CreateTxtFileWithAnswer()
         {
             // Arrange
             var fakeRepositoryContext = new Mock<RepositoryContext>();
