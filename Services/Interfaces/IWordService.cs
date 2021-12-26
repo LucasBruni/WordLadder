@@ -26,5 +26,11 @@ namespace Services.Interfaces
         /// <param name="resultList">resultList.</param>
         /// <param name="outputFilePath">Output File Path.</param>
         public void SaveResult(IEnumerable<WordModel> resultList, string outputFilePath = null);
+
+        /// <summary>
+        /// Validate Word Model.
+        /// </summary>
+        /// <param name="wordModel">The Word Model.</param>
+        public void ValidateWordModel(WordModel wordModel);
     }
 }

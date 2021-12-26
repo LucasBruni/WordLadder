@@ -11,6 +11,13 @@ namespace Services.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="WordModel"/> class.
         /// </summary>
+        public WordModel()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WordModel"/> class.
+        /// </summary>
         /// <param name="value">The word.</param>
         public WordModel(string value)
         {

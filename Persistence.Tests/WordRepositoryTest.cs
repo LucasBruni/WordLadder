@@ -1,12 +1,10 @@
 ﻿using Domain.Entities;
-using Domain.Entities.Interfaces;
 using Domain.Repositories.Interfaces;
 using Moq;
 using Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Xunit;
 
 namespace Persistence.Tests
@@ -27,33 +25,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetWordsByLength_NotEmpty()
-        {
-            // Arrange
-            var wordRepository = this.GetWordService();
-
-            // Act
-            var result = wordRepository.GetWordsByLength(4);
-
-            // Assert
-            Assert.NotEmpty(result);
-        }
-
-        [Fact]
-        public void GetWordsByLength_Empty()
-        {
-            // Arrange
-            var wordRepository = this.GetWordService();
-
-            // Act
-            var result = wordRepository.GetWordsByLength(9);
-
-            // Assert
-            Assert.Empty(result);
-        }
-
-        [Fact]
-        public void SaveResult()
+        public void SaveResult_WhenHaveAnswer_SaveTxtFile()
         {
             // Arrange
             var fakeRepositoryContext = new Mock<RepositoryContext>();
@@ -79,7 +51,7 @@ namespace Persistence.Tests
         {
             var fakeRepositoryContext = new Mock<IRepositoryContext>();
             fakeRepositoryContext.SetupGet(w => w.Words)
-                .Returns(new List<IWord>() { new Word("Test"), new Word("Test2") });
+                .Returns(new List<Word>() { new Word("Test"), new Word("Test2") });
 
             IWordRepository wordRepository = new WordRepository(fakeRepositoryContext.Object);
 

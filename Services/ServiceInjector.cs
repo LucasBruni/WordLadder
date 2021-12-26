@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using Services.Interfaces;
 using Services.Mappings;
+using Services.Models;
 
 namespace Services
 {
@@ -18,7 +20,8 @@ namespace Services
             service.AddScoped<IServiceManager, ServiceManager>()
             .AddScoped<IWordLadderService, WordLadderService>()
             .AddScoped<IWordService, WordService>()
-            .AddAutoMapper(typeof(WordMapping));
+            .AddAutoMapper(typeof(WordMapping))
+            .AddValidatorsFromAssemblyContaining<WordModel>();
         }
     }
 }

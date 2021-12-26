@@ -26,13 +26,25 @@ namespace Presentation
         public void StartWordLadder()
         {
             var isValid = false;
-            WordModel firstWord, targetWord;
+            WordModel firstWord = new WordModel();
+            WordModel targetWord = new WordModel();
 
             do
             {
-                this.Menu(out firstWord, out targetWord);
+                try
+                {
+                    this.Menu(out firstWord, out targetWord);
 
-                isValid = this.serviceManager.WordLadderService.Validate(firstWord, targetWord, this.serviceManager.WordService.Words);
+                    this.serviceManager.WordLadderService.Validate(firstWord, targetWord, this.serviceManager.WordService.Words);
+
+                    isValid = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.GetType().FullName);
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(Environment.NewLine);
+                }
             }
             while (isValid == false);
 
@@ -55,12 +67,16 @@ namespace Presentation
         private void Menu(out WordModel firstWord, out WordModel targetWord)
         {
             Console.WriteLine(string.Format("Enter the first word: "));
-            firstWord = new WordModel("some");
-            // firstWord = new WordModel(Console.ReadLine().Trim());
+            // firstWord = new WordModel("some");
+            firstWord = new WordModel(Console.ReadLine().Trim());
+
+            this.serviceManager.WordService.ValidateWordModel(firstWord);
 
             Console.WriteLine(string.Format("Enter the target Word: "));
-            targetWord = new WordModel("cost");
-            //targetWord = new WordModel(Console.ReadLine().Trim());
+            // targetWord = new WordModel("cost");
+            targetWord = new WordModel(Console.ReadLine().Trim());
+
+            this.serviceManager.WordService.ValidateWordModel(targetWord);
 
             Console.WriteLine(Environment.NewLine);
         }

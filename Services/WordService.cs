@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories.Interfaces;
+using FluentValidation;
 using Services.Interfaces;
 using Services.Models;
 
@@ -23,15 +24,19 @@ namespace Services
         /// </summary>
         private readonly IRepositoryManager repositoryManager;
 
+        private readonly IValidator<WordModel> wordValidator;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WordService"/> class.
         /// </summary>
         /// <param name="repositoryManager">Repository Manager.</param>
         /// <param name="mapper">Mapper.</param>
-        public WordService(IRepositoryManager repositoryManager, IMapper mapper)
+        /// <param name="validator">The Word Validator.</param>
+        public WordService(IRepositoryManager repositoryManager, IMapper mapper, IValidator<WordModel> validator)
         {
             this.repositoryManager = repositoryManager;
             this.mapper = mapper;
+            this.wordValidator = validator;
             this.LoadWordList();
         }
 
@@ -51,6 +56,12 @@ namespace Services
         {
             var result = this.mapper.Map<List<Word>>(resultList);
             this.repositoryManager.WordRepository.SaveResult(result, outputFilePath);
+        }
+
+        /// <inheritdoc/>
+        public void ValidateWordModel(WordModel wordModel)
+        {
+            this.wordValidator.Validate(wordModel);
         }
 
         /// <summary>

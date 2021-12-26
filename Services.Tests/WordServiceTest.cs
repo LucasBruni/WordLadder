@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Domain.Entities.Interfaces;
 using Domain.Repositories.Interfaces;
+using FluentValidation;
 using Moq;
 using Persistence;
 using Persistence.Repositories;
@@ -78,7 +78,8 @@ namespace Services.Tests
             var fakeRepositoryContext = new Mock<RepositoryContext>();
             var fakeWordRepository = new Mock<WordRepository>(fakeRepositoryContext.Object);
             var fakeRepositoryManager = new Mock<RepositoryManager>(fakeWordRepository.Object);
-            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper);
+            var fakeValidator = new Mock<IValidator<WordModel>>();
+            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper, fakeValidator.Object);
             string firstWord = "cast";
             string targetWord = "cost";
             var listResult = new List<WordModel>() { new WordModel(firstWord), new WordModel(targetWord) };
@@ -98,11 +99,13 @@ namespace Services.Tests
         {
             var fakeWordRepository = new Mock<IWordRepository>();
             fakeWordRepository.Setup(w => w.GetWords(default))
-                .Returns(new List<IWord>() { new Word("Test"), new Word("Test2") });
+                .Returns(new List<Word>() { new Word("Test"), new Word("Test2") });
 
             var fakeRepositoryManager = new Mock<RepositoryManager>(fakeWordRepository.Object);
 
-            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper);
+            var fakeValidator = new Mock<IValidator<WordModel>>();
+
+            IWordService wordService = new WordService(fakeRepositoryManager.Object, this.Mapper, fakeValidator.Object);
 
             return wordService;
         }
