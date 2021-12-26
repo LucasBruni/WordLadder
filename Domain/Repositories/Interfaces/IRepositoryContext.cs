@@ -9,9 +9,9 @@ namespace Domain.Repositories.Interfaces
     public interface IRepositoryContext
     {
         /// <summary>
-        /// Gets or sets Word List.
+        /// Gets Word List.
         /// </summary>
-        public IEnumerable<Word> Words { get; set; }
+        public IEnumerable<Word> Words { get; }
 
         /// <summary>
         /// Save the result at the output file.

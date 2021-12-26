@@ -31,12 +31,13 @@ namespace Persistence
         /// <param name="inputFilePath">inputFilePath.</param>
         public RepositoryContext(string inputFilePath)
         {
-            this.inputFilePath = inputFilePath ?? AppDomain.CurrentDomain.BaseDirectory;
+            this.inputFilePath = inputFilePath ??
+                $"{Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\"))}Resources\\words-english.txt";
             this.LoadWords();
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Word> Words { get; set; }
+        public IEnumerable<Word> Words { get; private set; }
 
         /// <inheritdoc/>
         public void SaveOutputFile(IEnumerable<Word> resultList, string outputFilePath = null)
@@ -64,7 +65,8 @@ namespace Persistence
             try
             {
                 var result = await File.ReadAllLinesAsync(this.inputFilePath);
-                this.Words = result.Select(w => new Word(w.Trim().ToLower())).ToList();
+                var words = result.ToList().Select(w => w.Trim().ToLower()).Distinct();
+                this.Words = words.Select(w => new Word(w));
             }
             catch (Exception ex)
             {

@@ -96,9 +96,9 @@ namespace Services
             {
                 Parallel.ForEach(currentPossibleWordMatches, (matchList, state) =>
                 {
-                    var alikeList = availableWords.Where(x => x.IsLike(matchList.Last()) && !matchList.Any(y => y.Value.Equals(x.Value)));
+                    var alikeList = availableWords.Where(x => x.IsLike(matchList.Last()) && !matchList.Any(y => y.Equals(x)));
 
-                    if (alikeList.Any(x => x.Value.Equals(targetWord.Value)))
+                    if (alikeList.Any(x => x.Equals(targetWord)))
                     {
                         matchList.Add(targetWord);
                         finalResult = matchList;
