@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities;
+using System.Collections.Generic;
 using System.Threading;
-using Domain.Entities.Interfaces;
 
 namespace Domain.Repositories.Interfaces
 {
@@ -14,7 +14,7 @@ namespace Domain.Repositories.Interfaces
         /// </summary>
         /// <param name="cancellationToken">Cancellation Token.</param>
         /// <returns>List of words.</returns>
-        public IEnumerable<IWord> GetWords(CancellationToken cancellationToken = default);
+        public IEnumerable<Word> GetWords(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get Words by length.
@@ -22,13 +22,13 @@ namespace Domain.Repositories.Interfaces
         /// <param name="length">Word Length.</param>
         /// <param name="cancellationToken">Cancellation Token.</param>
         /// <returns>List of words.</returns>
-        public IEnumerable<IWord> GetWordsByLength(int length, CancellationToken cancellationToken = default);
+        public IEnumerable<Word> GetWordsByLength(int length, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Save the Result.
         /// </summary>
         /// <param name="resultList">resultList.</param>
         /// <param name="outputFilePath">Output File Path.</param>
-        public void SaveResult(IEnumerable<IWord> resultList, string outputFilePath = null);
+        public void SaveResult(IEnumerable<Word> resultList, string outputFilePath = null);
     }
 }

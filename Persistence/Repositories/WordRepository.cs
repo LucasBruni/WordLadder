@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Entities.Interfaces;
 using Domain.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,25 +26,25 @@ namespace Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public IEnumerable<IWord> GetWords(CancellationToken cancellationToken = default)
+        public IEnumerable<Word> GetWords(CancellationToken cancellationToken = default)
         {
             var result = this.repositoryContext.Words;
-            IEnumerable<IWord> wordList = result.Distinct().Select(w => new Word(w.Value));
+            IEnumerable<Word> wordList = result.Distinct().Select(w => new Word(w.Value));
 
             return wordList;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<IWord> GetWordsByLength(int length, CancellationToken cancellationToken = default)
+        public IEnumerable<Word> GetWordsByLength(int length, CancellationToken cancellationToken = default)
         {
             var result = this.repositoryContext.Words;
-            IEnumerable<IWord> wordList = result.Distinct().Where(w => w.Length.Equals(length)).Select(w => new Word(w.Value));
+            IEnumerable<Word> wordList = result.Distinct().Where(w => w.Length.Equals(length)).Select(w => new Word(w.Value));
 
             return wordList;
         }
 
         /// <inheritdoc/>
-        public void SaveResult(IEnumerable<IWord> resultList, string outputFilePath = null)
+        public void SaveResult(IEnumerable<Word> resultList, string outputFilePath = null)
         {
             this.repositoryContext.SaveOutputFile(resultList, outputFilePath);
         }

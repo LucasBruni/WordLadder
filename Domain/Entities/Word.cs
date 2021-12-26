@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Domain.Entities.Interfaces;
 
 namespace Domain.Entities
 {
     /// <summary>
     /// Word class.
     /// </summary>
-    public class Word : IWord
+    public class Word
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Word"/> class.
@@ -17,13 +16,19 @@ namespace Domain.Entities
             this.Value = value;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
         public string Value { get; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Length of the word.
+        /// </summary>
         public int Length => this.Value.Length;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a value indicating whether is Valid.
+        /// </summary>
         public bool IsValid => this.Value.All(char.IsLetter);
     }
 }

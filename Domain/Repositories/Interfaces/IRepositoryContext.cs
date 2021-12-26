@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Domain.Entities.Interfaces;
+﻿using Domain.Entities;
+using System.Collections.Generic;
 
 namespace Domain.Repositories.Interfaces
 {
@@ -11,13 +11,13 @@ namespace Domain.Repositories.Interfaces
         /// <summary>
         /// Gets or sets Word List.
         /// </summary>
-        public IEnumerable<IWord> Words { get; set; }
+        public IEnumerable<Word> Words { get; set; }
 
         /// <summary>
         /// Save the result at the output file.
         /// </summary>
         /// <param name="resultList">Result List.</param>
         /// <param name="outputFilePath">Output File Path.</param>
-        public void SaveOutputFile(IEnumerable<IWord> resultList, string outputFilePath = null);
+        public void SaveOutputFile(IEnumerable<Word> resultList, string outputFilePath = null);
     }
 }

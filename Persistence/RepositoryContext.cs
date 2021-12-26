@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Entities.Interfaces;
 using Domain.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 
@@ -38,10 +36,10 @@ namespace Persistence
         }
 
         /// <inheritdoc/>
-        public IEnumerable<IWord> Words { get; set; }
+        public IEnumerable<Word> Words { get; set; }
 
         /// <inheritdoc/>
-        public void SaveOutputFile(IEnumerable<IWord> resultList, string outputFilePath = null)
+        public void SaveOutputFile(IEnumerable<Word> resultList, string outputFilePath = null)
         {
             try
             {
