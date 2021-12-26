@@ -25,7 +25,7 @@ namespace Presentation
         /// </summary>
         public void StartWordLadder()
         {
-            bool isValid;
+            var isValid = false;
             WordModel firstWord, targetWord;
 
             do

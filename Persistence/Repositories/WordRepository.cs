@@ -29,7 +29,7 @@ namespace Persistence.Repositories
         public IEnumerable<Word> GetWords(CancellationToken cancellationToken = default)
         {
             var result = this.repositoryContext.Words;
-            IEnumerable<Word> wordList = result.Distinct().Select(w => new Word(w.Value));
+            var wordList = result.Distinct().Select(w => new Word(w.Value));
 
             return wordList;
         }
@@ -38,7 +38,7 @@ namespace Persistence.Repositories
         public IEnumerable<Word> GetWordsByLength(int length, CancellationToken cancellationToken = default)
         {
             var result = this.repositoryContext.Words;
-            IEnumerable<Word> wordList = result.Distinct().Where(w => w.Length.Equals(length)).Select(w => new Word(w.Value));
+            var wordList = result.Distinct().Where(w => w.Length.Equals(length)).Select(w => new Word(w.Value));
 
             return wordList;
         }

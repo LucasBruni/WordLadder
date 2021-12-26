@@ -32,9 +32,9 @@ namespace Services
         /// <inheritdoc/>
         public bool Validate(WordModel firstWord, WordModel targetWord, IEnumerable<WordModel> availableWords)
         {
-            bool isValid = false;
+            var isValid = false;
 
-            StringBuilder message = new StringBuilder();
+            var message = new StringBuilder();
 
             if (firstWord.IsValid == false || firstWord.Length <= 1)
             {
@@ -87,10 +87,10 @@ namespace Services
         /// <returns>Next Group of Possible Matches.</returns>
         private IEnumerable<WordModel> GetNextGroupOfPossibleMatches(WordModel targetWord, IEnumerable<WordModel> availableWords, ref List<List<WordModel>> currentPossibleWordMatches)
         {
-            List<WordModel> finalResult = new List<WordModel>();
+            var finalResult = new List<WordModel>();
 
             var newPossibleMatches = new List<List<WordModel>>();
-            bool isFinished = false;
+            var isFinished = false;
 
             try
             {

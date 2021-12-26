@@ -44,7 +44,7 @@ namespace Persistence
             try
             {
                 var pathToSave = this.inputFilePath.Replace("words-english.txt", $"Results\\{outputFilePath}");
-                FileInfo file = new FileInfo(pathToSave);
+                var file = new FileInfo(pathToSave);
                 file.Directory.Create();
                 File.WriteAllLinesAsync(pathToSave, resultList.Select(w => w.Value).ToList());
 

@@ -32,10 +32,10 @@ namespace Presentation
             var myTimer = new Stopwatch();
             myTimer.Start();
 
-            Startup startup = new Startup();
+            var startup = new Startup();
             var service = startup.ConfigureServices();
 
-            Program program = service.GetService<Program>();
+            var program = service.GetService<Program>();
 
             bool isValid;
             do
@@ -60,10 +60,10 @@ namespace Presentation
             Console.WriteLine("Choose an option: ");
 
             // string option = Console.ReadLine();
-            string option = "1";
+            var option = "1";
             Console.WriteLine(Environment.NewLine);
 
-            bool isValid;
+            var isValid = false;
             switch (option)
             {
                 case "1":
