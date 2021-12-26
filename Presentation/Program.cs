@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Domain.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Persistence;
-using Persistence.Repositories;
-using Services;
 using Services.Interfaces;
-using Services.Mappings;
 
 namespace Presentation
 {
@@ -38,7 +32,8 @@ namespace Presentation
             var myTimer = new Stopwatch();
             myTimer.Start();
 
-            var service = ConfigureServices();
+            Startup startup = new Startup();
+            var service = startup.ConfigureServices();
 
             Program program = service.GetService<Program>();
 
@@ -87,26 +82,6 @@ namespace Presentation
             }
 
             return isValid;
-        }
-
-        /// <summary>
-        /// Configure services.
-        /// </summary>
-        /// <param name="services">Services.</param>
-        private static IServiceProvider ConfigureServices()
-        {
-            var service = new ServiceCollection();
-
-            return service.AddLogging(config => config.ClearProviders().AddConsole().SetMinimumLevel(LogLevel.Debug))
-            .AddScoped<IServiceManager, ServiceManager>()
-            .AddScoped<IWordLadderService, WordLadderService>()
-            .AddScoped<IWordService, WordService>()
-            .AddAutoMapper(typeof(WordMapping))
-            .AddScoped<IWordRepository, WordRepository>()
-            .AddScoped<IRepositoryManager, RepositoryManager>()
-            .AddScoped<IRepositoryContext, RepositoryContext>()
-            .AddScoped<Program>()
-            .BuildServiceProvider();
         }
 
         /// <summary>
