@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Core
+namespace CrossCutting
 {
     /// <summary>
-    /// Extension Methods class.
+    /// IEnumerable Extension Methods.
     /// </summary>
-    public static class ExtensionMethods
+    public static class IEnumerableExtensionMethods
     {
         /// <summary>
         /// Verify if the item is in the list.

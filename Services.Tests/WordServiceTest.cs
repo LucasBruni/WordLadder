@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Domain.Repositories.Interfaces;
 using FluentValidation;
 using Moq;
 using Persistence;
 using Persistence.Repositories;
+using Persistence.Repositories.Interfaces;
 using Services.Exceptions;
 using Services.Interfaces;
 using Services.Mappings;

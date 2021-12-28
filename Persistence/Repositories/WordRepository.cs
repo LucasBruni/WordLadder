@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Domain.Repositories.Interfaces;
+using Persistence.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading;
 

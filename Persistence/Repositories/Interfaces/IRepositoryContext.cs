@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
 
-namespace Domain.Repositories.Interfaces
+namespace Persistence.Repositories.Interfaces
 {
     /// <summary>
     /// Repository Manager Interface.

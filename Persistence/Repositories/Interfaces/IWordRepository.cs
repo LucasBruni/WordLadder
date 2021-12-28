@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Domain.Repositories.Interfaces
+namespace Persistence.Repositories.Interfaces
 {
     /// <summary>
     /// Word Repository Interface.

@@ -1,4 +1,4 @@
-﻿namespace Domain.Repositories.Interfaces
+﻿namespace Persistence.Repositories.Interfaces
 {
     /// <summary>
     /// Repository Manager Interface.

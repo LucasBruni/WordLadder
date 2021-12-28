@@ -2,8 +2,8 @@
 using System.Linq;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Repositories.Interfaces;
 using FluentValidation;
+using Persistence.Repositories.Interfaces;
 using Services.Interfaces;
 using Services.Models;
 

@@ -1,6 +1,6 @@
-﻿using Domain.Repositories.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repositories;
+using Persistence.Repositories.Interfaces;
 
 namespace Persistence
 {

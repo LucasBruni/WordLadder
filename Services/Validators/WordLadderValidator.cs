@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using CrossCutting;
 using FluentValidation;
 using Services.Exceptions;
 using Services.Models;

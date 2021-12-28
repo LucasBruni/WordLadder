@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Repositories.Interfaces;
 using Moq;
 using Persistence.Repositories;
+using Persistence.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
